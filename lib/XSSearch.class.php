@@ -946,10 +946,12 @@ class XSSearch extends XSServer
 		} else {
 			// 无结果、包含 OR、XOR、NOT/-、默认 fuzzy
 			$query = $this->_query;
-			if (!$this->_lastCount || ($this->_defaultOp == XS_CMD_QUERY_OP_OR && strpos($query, ' '))
-				|| strpos($query, ' OR ') || strpos($query, ' NOT ') || strpos($query, ' XOR ')) {
-				return;
-			}
+            if (!$this->_lastCount || ($this->_defaultOp == XS_CMD_QUERY_OP_OR && (null !== $query && strpos($query, ' ')))
+                || (null !== $query && strpos($query, ' OR '))
+                || (null !== $query && strpos($query, ' NOT '))
+                || (null !== $query && strpos($query, ' XOR '))) {
+                return;
+            }
 			$terms = $this->terms(null, false);
 		}
 		// purify the query statement to log
